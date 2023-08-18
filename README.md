@@ -35,6 +35,8 @@ $ python -m pip install -r requirements.txt
 
 1. Before running the script, make sure that the `mysql` command is accessible from the terminal. If not, add the directory containing the `mysql` command to your PATH variables.
 
+E.g., On Window and using XAMPP, this will likely be found in the directory `C:\xampp\mysql\bin`. On Mac, this will likely be found in `Applications/XAMPP/bin/mysql`. Add this directory to your PATH variables. Then reopen any closed commandline/terminal before proceeding.
+
 1. Run the script with the following parameters:
 
 - `[SQL_DIR]`: The path to the directory containing the SQL files.
