@@ -61,18 +61,19 @@ def migrate_data(sql_files_dir, database_name, username, password):
     # Get a list of SQL files in the directory
     sql_files = glob.glob(os.path.join(sql_files_dir, "*.sql"))
     sql_files.sort(key=extract_pending_number)
+    files_len = len(sql_files)
 
     # Iterate over the files and import them one by one
-    for sql_file in sql_files:
+    for index, sql_file in enumerate(sql_files):
         # Execute the MySQL command to import the data
         cmd = f"mysql -u{username} --password={password} -D{database_name} < {sql_file}" # cmd = f"mysql -uroot --password= -D{database_name} < {sql_file}"
         result = subprocess.run(cmd, shell=True)
 
         if result.returncode != 0:
-            logger.warning(f"Failed to migrate data from SQL file {sql_file}")
+            logger.warning(f"{index + 1}/{files_len} Failed to migrate data from SQL file {sql_file}")
 
         else:
-            logger.info(f"Data migration completed for file: {sql_file}")
+            logger.info(f"{index + 1}/{files_len} Data migration completed for file: {sql_file}")
 
 def main():
 
