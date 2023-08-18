@@ -1,40 +1,69 @@
-## You have many SQL files and wish to import them all at once, here's the solution
+## About
 
-### 1. Setup
+This project allows you to migrate one or more local SQL files to a local or remote MySQL database.
 
-- Download and Install Python v3 Interpreter on your computer system. 
-```Goto: https://python.org/downloads```
+## Getting Started
 
-| Don't forget to add python to your path variables. This is true to Mac, Linux & Windows.
+To use this application, follow the steps below:
 
-- Clone the project to your computer:
-```$ git clone https://github.com/UNESCO-CMR/sql-migrator-py.git```
+### Prerequisites
 
-- Open the commandline/terminal in the project directory
-```$ cd .../sql-migrator-py```
+- Python v3 Interpreter installed on your computer system. Download it from: [https://python.org/downloads](https://python.org/downloads).
+- Ensure that Python is added to your path variables.
 
-- Install the python dependences (mysql-connector-python) from the requirements file.
-```$ python -m pip install -r reqirements.txt```
+### Installation
 
-- ALL DONE ✅
+1. Clone the project to your computer:
 
-### 2. Run the Script:
+```
+$ git clone https://github.com/UNESCO-CMR/sql-migrator-py.git
+```
 
-| Before you run this command, ensure that the `mysql` command is accessible from the terminal. This can be done by adding the mysql command directory to your PATH variables. 
+2. Open the command line/terminal and navigate to the project directory:
 
-E.g., On Window and using XAMPP, this will likely be found in the directory `C:\xampp\mysql\bin`. On Mac, this will likely be found in `Applications/XAMPP/bin/mysql`. Add this directory to your PATH variables. Then reopen any closed commandline/terminal before proceeding.  
+```
+$ cd .../sql-migrator-py
+```
 
-##### Parameters
-- [SQL_DIR]: The PATH to the directory containing the SQL files. 
-- [DATABASE]: Your database name. Required.
-- [USERNAME]: Your database user. Required. 
-- [PASSWORD]: Your database user's password. Optiona, Default: ""
-- [HOST]: Your MySQL Host name. Optional, Default: localhost or 127.0.0.1
-- [PORT]: Your MySQL Port address. Optional, Default: 3306
+3. Install the required Python dependencies (mysql-connector-python) from the requirements file:
 
-```$ python main.py --sql-dir [SQL_DIR] --database [DATABASE] --username [USERNAME] --password [PASSWORD]```
+```
+$ python -m pip install -r requirements.txt
+```
 
-##### Extra: Execute files sequentially
+### Usage
 
-To execute file sequentially, ensure to terminate the file name with an underscore, then an incremental number.
-E.g., backup_file_1.sql, backup_file_2.sql, ..., backup_file_30, .... 
+1. Before running the script, make sure that the `mysql` command is accessible from the terminal. If not, add the directory containing the `mysql` command to your PATH variables.
+
+1. Run the script with the following parameters:
+
+- `[SQL_DIR]`: The path to the directory containing the SQL files.
+- `[DATABASE]`: Your database name (required).
+- `[USERNAME]`: Your database user (required).
+- `[PASSWORD]`: Your database user's password (optional, default: "").
+- `[HOST]`: Your MySQL Host name (optional, default: localhost or 127.0.0.1).
+- `[PORT]`: Your MySQL Port address (optional, default: 3306).
+
+Example command:
+
+```
+$ python main.py --sql-dir [SQL_DIR] --database [DATABASE] --username [USERNAME] --password [PASSWORD]
+```
+
+### Extra: Execute files sequentially
+
+To execute files sequentially, ensure that the file names are terminated with an underscore and an incremental number. For example: `backup_file_1.sql`, `backup_file_2.sql`, `backup_file_30.sql`, and so on.
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions, improvements, or bug fixes, please submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgements
+
+Thank you to all content-producers on the internet.
+
+If you have any questions or need further assistance, please feel free to contact us.
