@@ -28,7 +28,7 @@
 - [HOST]: Your MySQL Host name. Optional, Default: localhost or 127.0.0.1
 - [PORT]: Your MySQL Port address. Optional, Default: 3306
 
-```$ python main.py --sql-dir [SQL_DIR] --database [DATABASE] --username [USERNAME] --password PASSWORD```
+```$ python main.py --sql-dir [SQL_DIR] --database [DATABASE] --username [USERNAME] --password [PASSWORD]```
 
 ##### Extra: Execute files sequentially
 
