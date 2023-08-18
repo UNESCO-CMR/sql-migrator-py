@@ -4,6 +4,23 @@ import glob
 import argparse
 import mysql.connector
 import re
+import logging
+import datetime
+
+# Create a logger
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Create a formatter with a time prefix
+formatter = logging.Formatter('%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+
+# Create a StreamHandler and set the formatter
+handler = logging.StreamHandler()
+handler.setFormatter(formatter)
+
+# Add the handler to the logger
+logger.addHandler(handler)
+
 
 def test_database_connection(database, username, password, host="localhost", port=3306):
     try:
@@ -17,7 +34,7 @@ def test_database_connection(database, username, password, host="localhost", por
         conn.close()
         return True
     except mysql.connector.Error as err:
-        print(f"Failed to connect to the database: {err}")
+        logger.error(f"Failed to connect to the database: {err}")
         return False
 
 
@@ -40,10 +57,10 @@ def migrate_data(sql_files_dir, database_name, username, password):
         result = subprocess.run(cmd, shell=True)
 
         if result.returncode != 0:
-            print(f"Failed to migrate data from SQL file {sql_file}")
+            logger.warn(f"Failed to migrate data from SQL file {sql_file}")
 
         else:
-            print(f"Data migration completed for file: {sql_file}")
+            logger.info(f"Data migration completed for file: {sql_file}")
 
 def main():
 
@@ -56,7 +73,7 @@ def main():
     parser.add_argument("--port", default=3306, help="MySQL port.")
 
     args = parser.parse_args()
-    print(args)
+    logger.info(args)
 
     # Test database connection
     if not test_database_connection(args.database, args.username, args.password, args.host, args.port):
@@ -64,7 +81,7 @@ def main():
 
     migrate_data(args.sql_dir, args.database, args.username, args.password)
 
-    print("All data migrations completed successfully.")
+    logger.info("All data migrations completed successfully.")
 
 if __name__ == "__main__":
     main()
