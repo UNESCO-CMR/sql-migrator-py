@@ -6,16 +6,28 @@ import mysql.connector
 import re
 import logging
 import datetime
+import colorlog
 
 # Create a logger
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-# Create a formatter with a time prefix
-formatter = logging.Formatter('%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-
 # Create a StreamHandler and set the formatter
 handler = logging.StreamHandler()
+
+formatter = colorlog.ColoredFormatter(
+    '%(asctime)s - %(log_color)s%(levelname)s%(reset)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+    log_colors={
+        'DEBUG': 'cyan',
+        'INFO': 'green',
+        'WARNING': 'yellow',
+        'ERROR': 'red',
+        'CRITICAL': 'red,bg_white'
+    }
+)
+
+# Set the formatter on the handler
 handler.setFormatter(formatter)
 
 # Add the handler to the logger
@@ -57,7 +69,7 @@ def migrate_data(sql_files_dir, database_name, username, password):
         result = subprocess.run(cmd, shell=True)
 
         if result.returncode != 0:
-            logger.warn(f"Failed to migrate data from SQL file {sql_file}")
+            logger.warning(f"Failed to migrate data from SQL file {sql_file}")
 
         else:
             logger.info(f"Data migration completed for file: {sql_file}")
@@ -73,7 +85,6 @@ def main():
     parser.add_argument("--port", default=3306, help="MySQL port.")
 
     args = parser.parse_args()
-    logger.info(args)
 
     # Test database connection
     if not test_database_connection(args.database, args.username, args.password, args.host, args.port):
