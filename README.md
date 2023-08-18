@@ -20,6 +20,10 @@
 
 ### 2. Run the Script:
 
+| Before you run this command, ensure that the `mysql` command is accessible from the terminal. This can be done by adding the mysql command directory to your PATH variables. 
+
+E.g., On Window and using XAMPP, this will likely be found in the directory `C:\xampp\mysql\bin`. On Mac, this will likely be found in `Applications/XAMPP/bin/mysql`. Add this directory to your PATH variables. Then reopen any closed commandline/terminal before proceeding.  
+
 ##### Parameters
 - [SQL_DIR]: The PATH to the directory containing the SQL files. 
 - [DATABASE]: Your database name. Required.
