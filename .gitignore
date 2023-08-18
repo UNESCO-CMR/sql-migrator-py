@@ -1,2 +1,4 @@
 */*.sql
 .DS_Store
+.idea
+counter.txt
