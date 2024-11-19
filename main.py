@@ -51,12 +51,12 @@ def test_database_connection(database, username, password, host="localhost", por
         return False
 
 
-def read_progress(progress_file):
+def read_progress(progress_file, file_len=0):
     path = os.path.join(os.getcwd(), progress_file)
     if progress_file and os.path.isfile(path):
         with open(path, 'r') as file:
             data = file.readline()
-            if len(data) and data.isdigit():
+            if len(data) and data.isdigit() and int(data) < int(file_len): # update: ignore progress if it exceeds file count
                 return int(data)
     
     return False
@@ -86,7 +86,7 @@ def migrate_data(sql_files_dir, database_name, username, password, progress_file
     sql_files.sort(key=extract_pending_number)
     files_len = len(sql_files)
 
-    progress = read_progress(progress_file)
+    progress = read_progress(progress_file, files_len)
     resume = False
 
     if progress:
@@ -98,7 +98,7 @@ def migrate_data(sql_files_dir, database_name, username, password, progress_file
     for index, _ in enumerate(sql_files, start=(progress if resume else 0)):
         sql_file = sql_files[index]
         # Execute the MySQL command to import the data
-        cmd = f"mysql -u{username} --password={password} -D{database_name} < {sql_file}" # cmd = f"mysql -uroot --password= -D{database_name} < {sql_file}"
+        cmd = f"mysql --max_allowed_packet=100M -u{username} --password={password} -D{database_name} < {sql_file}" # cmd = f"mysql -uroot --password= -D{database_name} < {sql_file}"
         result = subprocess.run(cmd, shell=True)
 
         if result.returncode != 0:

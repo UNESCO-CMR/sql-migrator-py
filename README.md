@@ -1,8 +1,9 @@
 ## About
 
-This project allows you to migrate one or more local SQL files to a local or remote MySQL database.
+This project allows you to migrate one or more local or cloud SQL files to a local or remote MySQL database and track the progress.
 
 ## Getting Started
+> If you already have a large database file (SQL) and you need to smartly split it into small chuncks, I added a .exe binary [SQLDumpSlitter.rar](SQLDumpSplitter.rar) by Philip Lehmann-Bohm. After the split, you may need to first run ...DataStructure.sql which has the structure of your database. 
 
 To use this application, follow the steps below:
 
@@ -22,7 +23,7 @@ $ git clone https://github.com/UNESCO-CMR/sql-migrator-py.git
 2. Open the command line/terminal and navigate to the project directory:
 
 ```
-$ cd .../sql-migrator-py
+$ cd sql-migrator-py
 ```
 
 3. Install the required Python dependencies (mysql-connector-python) from the requirements file:
@@ -39,7 +40,7 @@ E.g., On Window and using XAMPP, this will likely be found in the directory `C:\
 
 1. Run the script with the following parameters:
 
-- `[SQL_DIR]`: The path to the directory containing the SQL files.
+- `[SQL_DIR]`: The path to the directory containing the SQL files (required).
 - `[DATABASE]`: Your database name (required).
 - `[USERNAME]`: Your database user (required).
 - `[PASSWORD]`: Your database user's password (optional, default: "").
@@ -55,11 +56,14 @@ $ python main.py --sql-dir [SQL_DIR] --database [DATABASE] --username [USERNAME]
 
 ### Extra: Execute files sequentially
 
-To execute files sequentially, ensure that the file names are terminated with an underscore and an incremental number. For example: `backup_file_1.sql`, `backup_file_2.sql`, `backup_file_30.sql`, and so on.
+To execute files sequentially, ensure that the file names are terminated with an underscore and an incremental number. For example: `backup_file_1.sql`, `backup_file_2.sql`, `backup_file_3.sql`, and so on.
 
 ## Contributing
 
-Contributions are welcome! If you have any suggestions, improvements, or bug fixes, please submit a pull request.
+Contributions are welcome! 
+1. To-do 1: Handling other database systems besides MySQl.
+2. To-do 2: Test this app on a cloud server without needing to host this application on that server.
+3. If you have any suggestions, improvements, or bug fixes, please submit a pull request.
 
 ## License
 
