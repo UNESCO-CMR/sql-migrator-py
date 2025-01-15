@@ -132,7 +132,6 @@ def main():
     else:
         password = ""
     
-    print("Password: ", password)
 
     # Test database connection
     if not test_database_connection(args.database, args.username, password, args.host, args.port):
