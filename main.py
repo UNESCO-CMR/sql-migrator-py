@@ -8,6 +8,8 @@ import logging
 import datetime
 import colorlog
 import threading
+from getpass import getpass
+
 
 # Create a logger
 logger = logging.getLogger(__name__)
@@ -115,21 +117,28 @@ def migrate_data(sql_files_dir, database_name, username, password, progress_file
 def main():
 
     parser = argparse.ArgumentParser(description="Import SQL files into MySQL database.")
-    parser.add_argument("--sql-dir", required=True, help="Path to the directory containing SQL files.")
-    parser.add_argument("--database", required=True, help="Name of the MySQL database.")
-    parser.add_argument("--username", required=True, help="MySQL username.")
-    parser.add_argument("--password", default="", help="MySQL password.")
+    parser.add_argument("-sd", "--sql-dir", required=True, help="Path to the directory containing SQL files.")
+    parser.add_argument("-d", "--database", required=True, help="Name of the MySQL database.")
+    parser.add_argument("-u", "--username", required=True, help="MySQL username.")
+    parser.add_argument('-p', '--password', default="", action='store_true', dest="password", help="MySQL password.")
     parser.add_argument("--host", default='localhost', help="MySQL host.")
     parser.add_argument("--port", default=3306, help="MySQL port.")
-    parser.add_argument("--progress-file", default="counter.txt", help="Text file to track progress.")
+    parser.add_argument("-pf", "--progress-file", default="counter.txt", help="Text file to track progress.")
 
     args = parser.parse_args()
 
+    if args.password:
+        password = getpass()
+    else:
+        password = ""
+    
+    print("Password: ", password)
+
     # Test database connection
-    if not test_database_connection(args.database, args.username, args.password, args.host, args.port):
+    if not test_database_connection(args.database, args.username, password, args.host, args.port):
         return
 
-    migrate_data(args.sql_dir, args.database, args.username, args.password, args.progress_file)
+    migrate_data(args.sql_dir, args.database, args.username, password, args.progress_file)
 
     # Migration complete
     write_progress(args.progress_file, "")

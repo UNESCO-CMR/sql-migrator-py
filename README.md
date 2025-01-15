@@ -43,7 +43,8 @@ E.g., On Window and using XAMPP, this will likely be found in the directory `C:\
 - `[SQL_DIR]`: The path to the directory containing the SQL files (required).
 - `[DATABASE]`: Your database name (required).
 - `[USERNAME]`: Your database user (required).
-- `[PASSWORD]`: Your database user's password (optional, default: "").
+- `[PASSWORD]`: Your database user's password (optional, default: ""). 
+> Do not enter your password. Simple add the -p or --password argument & you'll be prompted to enter it.
 - `[HOST]`: Your MySQL Host name (optional, default: localhost or 127.0.0.1).
 - `[PORT]`: Your MySQL Port address (optional, default: 3306).
 - `[PROGRESS_FILE]`: Text file to store import progress (optional, default: counter.txt).
@@ -51,8 +52,9 @@ E.g., On Window and using XAMPP, this will likely be found in the directory `C:\
 Example command:
 
 ```
-$ python main.py --sql-dir [SQL_DIR] --database [DATABASE] --username [USERNAME] --password [PASSWORD]
+$ python main.py --sql-dir [SQL_DIR] --database [DATABASE] --username [USERNAME] --password
 ```
+> After adding the -p or --password flag, you will be prompted to enter your password and it won't be visible. When you are done typing it, hit enter. 
 
 ### Extra: Execute files sequentially
 
